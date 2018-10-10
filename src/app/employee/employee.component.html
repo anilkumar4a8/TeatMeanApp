@@ -1,0 +1,158 @@
+
+
+
+<div class=container>
+  <div class="emplist">
+     
+    <div class="row">
+         
+      
+      <div class="column">
+      <label>Employee Id</label>
+ 
+      <select class="form-control" style="width:300px;" [(ngModel)]="empModel.employeeid" #employeeId="ngModel" required name="employeeId" (change)="changed(empModel.employeeid)">
+        <option [ngValue]="item.employeeId" *ngFor="let item of abc">{{item.employeeId}}</option>
+      </select> </div>
+      &nbsp;&nbsp;&nbsp;<div><br>
+        
+         <label>Leaves</label>
+      <select class="form-control" style="width:300px;" [(ngModel)]="empModel.leaves" #leaves="ngModel">
+        <option></option>
+          <option value="earned leave">Earned leave</option>
+          <option value="sick leave">Sick leave</option>
+        </select>
+      </div>
+    
+    <div class="column">         
+      <label>Start Date</label>
+      <input class="form-control" style="width:300px;" type="date" [(ngModel)]="empModel.startDate" #startDate="ngModel" required name="startDate"/>
+    </div>
+   
+   <div>  <br>&nbsp;<label>End Date</label>
+    &nbsp;&nbsp;<br><input class="form-control"style="width:300px;"  type="date" [(ngModel)]="empModel.endDate" #endDate="ngModel" required name="endDate" />
+  </div><br><br><br><br><br> <div>
+  <div>
+<br><br><br>&nbsp;&nbsp;
+ <div> <button type="button" class="btn btn-primary" (click)="onLeaveSearch(empModel.employeeid,empModel.leaves,empModel.startDate,empModel.endDate)">
+      search
+     </button>
+    </div>
+  </div>
+</div>
+</div>
+<br><br>
+<div>
+  
+      <table class="table table-striped">
+         
+          <style>
+             
+              table, th, td {
+                  border: 2px solid black;
+              }
+             
+             </style>  
+        
+  
+              
+      <thead> 
+      <tr>
+         
+      <th>#</th>
+      <th>Employee Name</th>
+      <th>Employee Id</th>
+      <th>Leaves</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Actions</th>
+      
+      </tr>
+
+    
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of list; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ employee.employeeName }}</td>
+      <td>{{ employee.employeeId }}</td>
+      <td>{{employee.leaves}}</td>
+      <td>{{employee.startDate.substring(0,10)}}</td>
+      <td>{{ employee.endDate.substring(0,10)}}</td>
+      
+      <td>
+          
+        <button type="button" class="btn btn-info" (click)="onLeaveEdit(employee)">Edit</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-danger" (click)="onLeaveDelete(employee._id)">Delete</button>
+      
+      </td>
+    </tr>
+  </tbody>
+
+  </table>
+  
+
+  <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+    </div>
+    </div>
+    </div>
+             <div class="regentry" *ngIf="showNew">
+
+                      <form  #employeeForm="ngForm" (ngSubmit)="onLeaveSave()">
+                      <label>Employee Name</label>
+                        <div class="form-group" [class.has-error]="employeeName.invalid" [class.has-success]="employeeName.valid">
+                            <input type="text" [(ngModel)]="empModel.employeeName" #employeeName="ngModel" required name="employeeName" class="form-control" placeholder="Employee Name">
+                             
+                            <span class="help-block" *ngIf="employeeName.errors?.required">
+                                          employee name is required
+                                        </span>
+                        </div>
+                        
+                           <label>Employee Id</label>
+                        <div class="form-group" [class.has-error]="employeeId.invalid" [class.has-success]="employeeId.valid">
+                          <input type="text" [(ngModel)]="empModel.employeeId" #employeeId="ngModel" required name="employeeId" class="form-control" placeholder="employee Id" required>
+                          
+                          <span class="help-block" *ngIf="employeeId.errors?.required">
+                            employeeId is required
+                                      </span>
+                      </div>
+                      <div class="form-group row">
+                        <label for="leaves-input" class="col-2 col-form-label">Leaves</label>
+                        <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                        <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="leaves" ngbDropdownToggle>{{empModel.leaves}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                        <button type="button" class="dropdown-item" *ngFor="let leaves of leaveType" (click)="onChangeleaves(leaves)">{{leaves}}</button>
+                        </div>
+                        </div>
+                        </div>
+                    <label>Start Date</label>
+                    <div class="form-group" [class.has-error]="startDate.invalid" [class.has-success]="startDate.valid">
+                      <input type="date" [(ngModel)]="empModel.startDate" #startDate="ngModel" required name="startDate" class="form-control" placeholder="startDate" >
+                      <span class="help-block" *ngIf="startDate.errors?.required">
+                        startDate is required
+                                  </span>
+                  </div> 
+                        
+                               
+                  <label>End Date</label>
+                  <div class="form-group" [class.has-error]="endDate.invalid" [class.has-success]="endDate.valid">
+                    <input type="date" [(ngModel)]="empModel.endDate" #endDate="ngModel" required name="endDate" class="form-control" placeholder="endDate" >
+                    <span class="help-block" *ngIf="endDate.errors?.required">
+                      endDate is required
+                                </span>
+                  </div> 
+                  
+                                      
+                                            
+                  <button type="submit" class="btn btn-primary" *ngIf="this.isSaveButtonVisible"  [disabled]="!employeeForm 
+                  .valid" >Save</button>
+                  <button type="button" class="btn btn-primary" *ngIf="this.isButtonVisible" (click)="onLeaveUpdate(empModel._id,empModel.employeeName,empModel.employeeId,empModel.leaves,empModel.startDate,empModel.endDate)"
+            >Update</button>
+                  <button type="submit" class="btn btn-primary" (click)="onLeaveCancel()">Cancel</button>                                        
+                    </form>
+              
+
+          
+    
+          </div>
+          
