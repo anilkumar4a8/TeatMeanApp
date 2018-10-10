@@ -16,7 +16,7 @@ export class CommonService {
  
   saveUser(f,l,earned,sick,p,e,c){      
     var totalLeaves=parseFloat(earned)+parseFloat(sick);
-    const uri = 'http://localhost:8080/registration/add';
+    const uri = 'registration/add';
     const obj = {
      firstName:f,
      lastName:l,
@@ -33,13 +33,13 @@ export class CommonService {
       .post(uri, obj)
       .subscribe(res =>
           console.log(res)); 
-       this.router.navigateByUrl("http://localhost:8080/registration")
+       this.router.navigateByUrl("registration")
         location.reload();
                  
   }  
   saveleaveType(e,ei,l,s,end){      
     
-    const uri = 'http://localhost:8080/employee/addleave';
+    const uri = 'employee/addleave';
     const obj = {
       
      employeeName:e,
@@ -54,12 +54,12 @@ export class CommonService {
       .post(uri, obj)
       .subscribe(res =>
           console.log(res)); 
-       this.router.navigateByUrl("http://localhost:8080/employee") 
+       this.router.navigateByUrl("employee") 
        location.reload();         
   }  
   savecontactType(cn,e,c,f,l,m,p,pt,ut,a){      
     alert(cn);
-    const uri = 'http://localhost:8080/contact/addcontact';
+    const uri = 'contact/addcontact';
     const obj = {
      
       contactName:cn,
@@ -80,11 +80,11 @@ export class CommonService {
       .subscribe(res =>
           console.log(res));
            
-       this.router.navigateByUrl("http://localhost:8080/contact") 
+       this.router.navigateByUrl("contact") 
        location.reload();         
   }  
   getUser() {
-    const uri = 'http://localhost:8080/registration';
+    const uri = 'registration';
     return this
             .http
             .get(uri)
@@ -94,7 +94,7 @@ export class CommonService {
             });
   }
   getleaveType() {
-    const uri = 'http://localhost:8080/employee';
+    const uri = 'employee';
     return this
             .http
             .get(uri)
@@ -105,7 +105,7 @@ export class CommonService {
 
   }
   getcontactType() {
-    const uri = 'http://localhost:8080/contact';
+    const uri = 'contact';
     return this
             .http
             .get(uri)
@@ -118,7 +118,7 @@ export class CommonService {
 
  
             editUser(id) {
-              const uri = 'http://localhost:8080/registration/edit/' + id;
+              const uri = 'registration/edit/' + id;
               return this
                       .http
                       .get(uri)
@@ -127,7 +127,7 @@ export class CommonService {
                       });
             }
             editleaveType(id) {
-              const uri = 'http://localhost:8080/employee/editleave/' + id;
+              const uri = 'employee/editleave/' + id;
               return this
                       .http
                       .get(uri)
@@ -136,7 +136,7 @@ export class CommonService {
                       });
             }
             editContactType(id) {
-              const uri = 'http://localhost:8080/contact/edit/' + id;
+              const uri = 'contact/edit/' + id;
               return this
                       .http
                       .get(uri)
@@ -146,7 +146,7 @@ export class CommonService {
             }
           
            updateUser(i,f,l,earned,sick,e,p,c) {
-              const uri = 'http://localhost:8080/registration/update/';
+              const uri = 'registration/update/';
           
               const obj = {
                 _id:i,
@@ -167,7 +167,7 @@ export class CommonService {
             
             
             updateleaveType(i,e,ei,l,s,end) {
-              const uri = 'http://localhost:8080/employee/updateleave/';
+              const uri = 'employee/updateleave/';
           
               const obj = {
                 _id:i,
@@ -184,7 +184,7 @@ export class CommonService {
                 location.reload();
             } 
             updatecontactType(i,cn,e,c,f,l,m,p,pt,ut,a) {
-              const uri = 'http://localhost:8080/contact/updatecontact/';
+              const uri = 'contact/updatecontact/';
           
               const obj = {
                 _id:i,
@@ -208,7 +208,7 @@ export class CommonService {
 
 
         /*    SearchleaveType(id,leave,start,end) {
-              const uri = 'http://localhost:8080/employee/Searchleave/';
+              const uri = 'employee/Searchleave/';
               let myHeaders = new Headers();
               myHeaders.append('Content-Type', 'application/json');    
               let myParams = new URLSearchParams();
@@ -218,15 +218,15 @@ export class CommonService {
               myParams.append('endDate', end);
               let options = new RequestOptions({ headers: myHeaders, params: myParams });
             
-              return this.http.get('http://localhost:8080/employee/Searchleave', { headers: myHeaders, params: myParams })
+              return this.http.get('employee/Searchleave', { headers: myHeaders, params: myParams })
               
             .map(res => {
               return res;});
           } */
             SearchleaveType(id,leave,start,end) {
-             // const uri = 'http://localhost:8080/employee/Searchleave/';
-             // const uri = 'http://localhost:8080/employee/Searchleave/'+{"employeeId":id,"leaves":leave,"startDate":start,"endDate":end};
-             const uri = 'http://localhost:8080/employee/Searchleave/';
+             // const uri = 'employee/Searchleave/';
+             // const uri = 'employee/Searchleave/'+{"employeeId":id,"leaves":leave,"startDate":start,"endDate":end};
+             const uri = 'employee/Searchleave/';
              
                  const obj = {
                    employeeId:id,
@@ -243,10 +243,10 @@ export class CommonService {
                   });
             } 
             Searchid(id) {
-              // const uri = 'http://localhost:8080/employee/Searchleave/';
-              // const uri = 'http://localhost:8080/employee/Searchleave/'+{"employeeId":id,"leaves":leave,"startDate":start,"endDate":end};
+              // const uri = 'employee/Searchleave/';
+              // const uri = 'employee/Searchleave/'+{"employeeId":id,"leaves":leave,"startDate":start,"endDate":end};
         
-              const uri = 'http://localhost:8080/employee/Searchid/';
+              const uri = 'employee/Searchid/';
               
                   const obj = {
                     employeeId:id,
@@ -264,7 +264,7 @@ export class CommonService {
 
             /*  updateUser(f,l,earned,sick,e,p,c) {
              
-              const uri = 'http://localhost:8080/registration/update/' + id;
+              const uri = 'registration/update/' + id;
           
               const obj = {
                 firstName:f,
@@ -278,7 +278,7 @@ export class CommonService {
 } */
   deleteUser(id) {
     
-    const uri = 'http://localhost:8080/registration/delete/';
+    const uri = 'registration/delete/';
 
     const obj = {
       _id:id
@@ -292,7 +292,7 @@ export class CommonService {
   }
   deleteleaveType(id) {
     alert(id);
-    const uri = 'http://localhost:8080/employee/deleteleave/';
+    const uri = 'employee/deleteleave/';
 
     const obj = {
       _id:id
@@ -306,7 +306,7 @@ export class CommonService {
   }
   deletecontactType(id) {
     alert(id);
-    const uri = 'http://localhost:8080/contact/deletecontact/';
+    const uri = 'contact/deletecontact/';
 
     const obj = {
       _id:id
@@ -322,7 +322,7 @@ incrementLeave(f){
   
   for (let i in f) {
     
-    const uri = 'http://localhost:8080/registration/incrementLeave/';
+    const uri = 'registration/incrementLeave/';
     
         
         this
